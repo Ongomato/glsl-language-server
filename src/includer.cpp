@@ -24,14 +24,14 @@ IncludeResult* FileIncluder::includeLocal(
     path = fs::absolute(path);
 
     std::string uri = "file://";
-    uri += path;
+    uri += path.string();
 
     auto& documents = this->workspace->documents();
 
     auto existing = documents.find(uri);
     if (existing == documents.end()) {
         // load the file
-        if (auto contents = read_file_to_string(path.c_str())) {
+        if (auto contents = read_file_to_string(&path.string()[0])) {
             documents[uri] = *contents;
             existing = documents.find(uri);
         } else {

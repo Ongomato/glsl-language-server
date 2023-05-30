@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(glsl-language-server)
 
+add_link_options(-static)
+
 find_package(Threads REQUIRED)
 
 add_subdirectory(externals/glslang EXCLUDE_FROM_ALL)
@@ -52,6 +54,7 @@ target_link_libraries(glslls
     glslang
     nlohmann_json
     mongoose
+    ws2_32
     ${stdfs}
     SPIRV
     fmt::fmt-header-only

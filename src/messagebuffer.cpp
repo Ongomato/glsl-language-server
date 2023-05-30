@@ -18,7 +18,7 @@ void MessageBuffer::handle_char(char c)
 
     // A sole \r\n is the separator between the header block and the body block
     // but we don't need it.
-    if (m_raw_message == "\r\n") {
+    if (m_raw_message == "\n") {
         m_raw_message.clear();
         m_is_header_done = true;
     }
@@ -49,7 +49,7 @@ void MessageBuffer::handle_string(std::string s)
 
     // A sole \r\n is the separator between the header block and the body block
     // but we don't need it.
-    if (m_raw_message == "\r\n") {
+    if (m_raw_message == "\n") {
         m_raw_message.clear();
         m_is_header_done = true;
     }
@@ -90,7 +90,7 @@ bool MessageBuffer::message_completed()
 
 std::tuple<std::string, std::string> MessageBuffer::try_parse_header(std::string& message) const
 {
-    auto eol_pos = m_raw_message.find("\r\n");
+    auto eol_pos = m_raw_message.find("\n");
     if (eol_pos != std::string::npos) {
         std::string header_string = m_raw_message.substr(0, eol_pos);
         auto delim_pos = header_string.find(":");

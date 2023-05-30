@@ -53,10 +53,10 @@ std::string make_response(const json& response)
     content["jsonrpc"] = "2.0";
 
     std::string header;
-    header.append("Content-Length: " + std::to_string(content.dump(4).size()) + "\r\n");
-    header.append("Content-Type: application/vscode-jsonrpc;charset=utf-8\r\n");
-    header.append("\r\n");
-    return header + content.dump(4);
+    header.append("Content-Length: " + std::to_string(content.dump(-1).size()) + "\n");
+    header.append("Content-Type: application/vscode-jsonrpc;charset=utf-8\n");
+    header.append("\n");
+    return header + content.dump(-1);
 }
 
 EShLanguage find_language(const std::string& name)
@@ -83,7 +83,7 @@ json get_diagnostics(std::string uri, std::string content,
         AppState& appstate)
 {
     FILE fp_old = *stdout;
-    *stdout = *fopen("/dev/null","w");
+    *stdout = *fopen("NUL","w");
     auto document = uri;
     auto lang = find_language(document);
 
