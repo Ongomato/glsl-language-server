@@ -31,7 +31,7 @@ include_directories(
 include_directories(
     externals/CLI11/include)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 file(GLOB SOURCES
     src/*.cpp
@@ -43,7 +43,7 @@ add_executable(glslls
     externals/glslang/StandAlone/ResourceLimits.cpp
 )
 
-if (CMAKE_SYSTEM_NAME MATCHES Darwin)
+if (CMAKE_SYSTEM_NAME MATCHES Darwin OR CMAKE_SYSTEM_NAME MATCHES FreeBSD)
     set(stdfs)
 else()
     set(stdfs stdc++fs)
